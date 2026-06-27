@@ -16,7 +16,7 @@ export const getRoom = (id: string): Promise<Room> => http.get(`/rooms/${id}`)
 export const getRoomStatus = async (id: string): Promise<{ status: Room['status'] }> => {
   const data = await http.get<PageResponse<StayHistory>>('/stays', {
     params: { room_id: id, active_only: true },
-  })
+  }) as unknown as PageResponse<StayHistory>
   const status: Room['status'] = data.items.length > 0 ? 'occupied' : 'vacant'
   return { status }
 }
